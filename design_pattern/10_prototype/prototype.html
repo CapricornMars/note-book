@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>原型模式 | Mrcode 笔记本</title>
+    <meta name="description" content="用来记录工作和学习过程中的笔记，汇总成册方便查阅，类容涵盖各类技术，如：java、git、elasticsearch、mycat、设计模式、gradle、vue - mrcode.cn">
+    
+    
+    <link rel="preload" href="/note-book/assets/css/0.styles.7ff3853c.css" as="style"><link rel="preload" href="/note-book/assets/js/app.e95dc5b2.js" as="script"><link rel="preload" href="/note-book/assets/js/2.2b5c6a3b.js" as="script"><link rel="preload" href="/note-book/assets/js/25.a1f2e7fa.js" as="script"><link rel="prefetch" href="/note-book/assets/js/10.f7516c86.js"><link rel="prefetch" href="/note-book/assets/js/100.b1729870.js"><link rel="prefetch" href="/note-book/assets/js/101.d6a5e447.js"><link rel="prefetch" href="/note-book/assets/js/102.c8d00bc8.js"><link rel="prefetch" href="/note-book/assets/js/103.664537b3.js"><link rel="prefetch" href="/note-book/assets/js/104.4688b011.js"><link rel="prefetch" href="/note-book/assets/js/105.4052c613.js"><link rel="prefetch" href="/note-book/assets/js/106.030e253b.js"><link rel="prefetch" href="/note-book/assets/js/107.6bceae5e.js"><link rel="prefetch" href="/note-book/assets/js/108.7dc9559f.js"><link rel="prefetch" href="/note-book/assets/js/109.11bec0b6.js"><link rel="prefetch" href="/note-book/assets/js/11.f587d3b4.js"><link rel="prefetch" href="/note-book/assets/js/110.ee60f5e0.js"><link rel="prefetch" href="/note-book/assets/js/111.974c1218.js"><link rel="prefetch" href="/note-book/assets/js/112.12ba3d07.js"><link rel="prefetch" href="/note-book/assets/js/113.5ee2a11a.js"><link rel="prefetch" href="/note-book/assets/js/114.36d7e03f.js"><link rel="prefetch" href="/note-book/assets/js/115.68c34be2.js"><link rel="prefetch" href="/note-book/assets/js/116.cbef2d4f.js"><link rel="prefetch" href="/note-book/assets/js/117.8381bc17.js"><link rel="prefetch" href="/note-book/assets/js/118.4aeff2da.js"><link rel="prefetch" href="/note-book/assets/js/119.3945c3d2.js"><link rel="prefetch" href="/note-book/assets/js/12.7677a930.js"><link rel="prefetch" href="/note-book/assets/js/120.af92dfee.js"><link rel="prefetch" href="/note-book/assets/js/121.4a6b9e49.js"><link rel="prefetch" href="/note-book/assets/js/122.e8108851.js"><link rel="prefetch" href="/note-book/assets/js/123.d6f25bdd.js"><link rel="prefetch" href="/note-book/assets/js/124.430f5edf.js"><link rel="prefetch" href="/note-book/assets/js/125.1dc02eaf.js"><link rel="prefetch" href="/note-book/assets/js/126.9e178c07.js"><link rel="prefetch" href="/note-book/assets/js/127.5ddd6b55.js"><link rel="prefetch" href="/note-book/assets/js/128.e9a2a4c0.js"><link rel="prefetch" href="/note-book/assets/js/129.9590077d.js"><link rel="prefetch" href="/note-book/assets/js/13.cf57bebb.js"><link rel="prefetch" href="/note-book/assets/js/130.c5aa8c6c.js"><link rel="prefetch" href="/note-book/assets/js/131.9fe49600.js"><link rel="prefetch" href="/note-book/assets/js/132.63284b9d.js"><link rel="prefetch" href="/note-book/assets/js/133.6b7711c4.js"><link rel="prefetch" href="/note-book/assets/js/134.7114c85e.js"><link rel="prefetch" href="/note-book/assets/js/135.3f7c2d59.js"><link rel="prefetch" href="/note-book/assets/js/136.49ad5816.js"><link rel="prefetch" href="/note-book/assets/js/137.ad1ad2a2.js"><link rel="prefetch" href="/note-book/assets/js/138.bfd5da28.js"><link rel="prefetch" href="/note-book/assets/js/139.03d66919.js"><link rel="prefetch" href="/note-book/assets/js/14.f802b06c.js"><link rel="prefetch" href="/note-book/assets/js/140.0ef8d214.js"><link rel="prefetch" href="/note-book/assets/js/141.57a879c8.js"><link rel="prefetch" href="/note-book/assets/js/142.b8791d69.js"><link rel="prefetch" href="/note-book/assets/js/143.5ca07679.js"><link rel="prefetch" href="/note-book/assets/js/144.775869fc.js"><link rel="prefetch" href="/note-book/assets/js/145.7a85ee83.js"><link rel="prefetch" href="/note-book/assets/js/146.b56fcf70.js"><link rel="prefetch" href="/note-book/assets/js/147.3c51de56.js"><link rel="prefetch" href="/note-book/assets/js/148.1781ce3a.js"><link rel="prefetch" href="/note-book/assets/js/149.11e28335.js"><link rel="prefetch" href="/note-book/assets/js/15.19c3959e.js"><link rel="prefetch" href="/note-book/assets/js/150.4b436fba.js"><link rel="prefetch" href="/note-book/assets/js/151.84cd372b.js"><link rel="prefetch" href="/note-book/assets/js/152.74668c67.js"><link rel="prefetch" href="/note-book/assets/js/153.aab88639.js"><link rel="prefetch" href="/note-book/assets/js/154.43ed8115.js"><link rel="prefetch" href="/note-book/assets/js/155.6235c7e6.js"><link rel="prefetch" href="/note-book/assets/js/156.dbfcf5ec.js"><link rel="prefetch" href="/note-book/assets/js/157.3b584966.js"><link rel="prefetch" href="/note-book/assets/js/158.5e4a72a7.js"><link rel="prefetch" href="/note-book/assets/js/159.2ec1a4ea.js"><link rel="prefetch" href="/note-book/assets/js/16.8e131c83.js"><link rel="prefetch" href="/note-book/assets/js/160.d3298c94.js"><link rel="prefetch" href="/note-book/assets/js/161.d1b3bd60.js"><link rel="prefetch" href="/note-book/assets/js/162.b9d52fb3.js"><link rel="prefetch" href="/note-book/assets/js/163.27bdb1e7.js"><link rel="prefetch" href="/note-book/assets/js/164.2b895586.js"><link rel="prefetch" href="/note-book/assets/js/165.c638616f.js"><link rel="prefetch" href="/note-book/assets/js/166.68940824.js"><link rel="prefetch" href="/note-book/assets/js/167.f693950d.js"><link rel="prefetch" href="/note-book/assets/js/168.e3dea54e.js"><link rel="prefetch" href="/note-book/assets/js/169.f6fa33c8.js"><link rel="prefetch" href="/note-book/assets/js/17.4063f7b5.js"><link rel="prefetch" href="/note-book/assets/js/170.5670347b.js"><link rel="prefetch" href="/note-book/assets/js/171.52586d3a.js"><link rel="prefetch" href="/note-book/assets/js/172.d809323c.js"><link rel="prefetch" href="/note-book/assets/js/173.642ad2b4.js"><link rel="prefetch" href="/note-book/assets/js/174.c4347054.js"><link rel="prefetch" href="/note-book/assets/js/175.2da83cc0.js"><link rel="prefetch" href="/note-book/assets/js/176.32bed35d.js"><link rel="prefetch" href="/note-book/assets/js/177.26cd2ff8.js"><link rel="prefetch" href="/note-book/assets/js/178.83b4a16d.js"><link rel="prefetch" href="/note-book/assets/js/179.5ba041a8.js"><link rel="prefetch" href="/note-book/assets/js/18.ad88c71f.js"><link rel="prefetch" href="/note-book/assets/js/180.ebd1b0dc.js"><link rel="prefetch" href="/note-book/assets/js/181.d80333ad.js"><link rel="prefetch" href="/note-book/assets/js/182.ba3a17e3.js"><link rel="prefetch" href="/note-book/assets/js/183.e297783b.js"><link rel="prefetch" href="/note-book/assets/js/184.164b2d1c.js"><link rel="prefetch" href="/note-book/assets/js/185.30f8fd52.js"><link rel="prefetch" href="/note-book/assets/js/186.243c0c30.js"><link rel="prefetch" href="/note-book/assets/js/187.a6c1f727.js"><link rel="prefetch" href="/note-book/assets/js/188.4eb483a1.js"><link rel="prefetch" href="/note-book/assets/js/189.a0c24a31.js"><link rel="prefetch" href="/note-book/assets/js/19.dc3eb08d.js"><link rel="prefetch" href="/note-book/assets/js/190.f2c17efd.js"><link rel="prefetch" href="/note-book/assets/js/191.6fc46fe4.js"><link rel="prefetch" href="/note-book/assets/js/192.819a6e4b.js"><link rel="prefetch" href="/note-book/assets/js/193.c320fb0c.js"><link rel="prefetch" href="/note-book/assets/js/194.1c71a798.js"><link rel="prefetch" href="/note-book/assets/js/195.b15712e3.js"><link rel="prefetch" href="/note-book/assets/js/196.ea0ce020.js"><link rel="prefetch" href="/note-book/assets/js/197.613e248d.js"><link rel="prefetch" href="/note-book/assets/js/198.952fb0fa.js"><link rel="prefetch" href="/note-book/assets/js/199.9c7849cf.js"><link rel="prefetch" href="/note-book/assets/js/20.f754ecaf.js"><link rel="prefetch" href="/note-book/assets/js/200.7d5b010c.js"><link rel="prefetch" href="/note-book/assets/js/201.d30efad2.js"><link rel="prefetch" href="/note-book/assets/js/202.2e1db756.js"><link rel="prefetch" href="/note-book/assets/js/203.4bd278bc.js"><link rel="prefetch" href="/note-book/assets/js/204.9f5fe774.js"><link rel="prefetch" href="/note-book/assets/js/205.3c1d8b0f.js"><link rel="prefetch" href="/note-book/assets/js/206.6e2482dd.js"><link rel="prefetch" href="/note-book/assets/js/207.6b538170.js"><link rel="prefetch" href="/note-book/assets/js/208.ff853b2b.js"><link rel="prefetch" href="/note-book/assets/js/209.62a041e6.js"><link rel="prefetch" href="/note-book/assets/js/21.326724ed.js"><link rel="prefetch" href="/note-book/assets/js/210.8e20e770.js"><link rel="prefetch" href="/note-book/assets/js/211.eb73c890.js"><link rel="prefetch" href="/note-book/assets/js/212.b2b3e4b2.js"><link rel="prefetch" href="/note-book/assets/js/213.9544e20f.js"><link rel="prefetch" href="/note-book/assets/js/214.fef9dbf9.js"><link rel="prefetch" href="/note-book/assets/js/215.d76639a1.js"><link rel="prefetch" href="/note-book/assets/js/216.0ebbd8c8.js"><link rel="prefetch" href="/note-book/assets/js/217.71e81d00.js"><link rel="prefetch" href="/note-book/assets/js/218.340546c2.js"><link rel="prefetch" href="/note-book/assets/js/219.83e2795a.js"><link rel="prefetch" href="/note-book/assets/js/22.8ebc38f0.js"><link rel="prefetch" href="/note-book/assets/js/220.fb45fcab.js"><link rel="prefetch" href="/note-book/assets/js/221.bbbfbd54.js"><link rel="prefetch" href="/note-book/assets/js/222.116d6faf.js"><link rel="prefetch" href="/note-book/assets/js/223.6938fc20.js"><link rel="prefetch" href="/note-book/assets/js/224.3a653f93.js"><link rel="prefetch" href="/note-book/assets/js/225.459a5b09.js"><link rel="prefetch" href="/note-book/assets/js/226.5f9664e0.js"><link rel="prefetch" href="/note-book/assets/js/227.7b9b53b7.js"><link rel="prefetch" href="/note-book/assets/js/228.32c74e0c.js"><link rel="prefetch" href="/note-book/assets/js/229.d7e3acfe.js"><link rel="prefetch" href="/note-book/assets/js/23.2ca526d1.js"><link rel="prefetch" href="/note-book/assets/js/230.bc42c8a3.js"><link rel="prefetch" href="/note-book/assets/js/231.a5212220.js"><link rel="prefetch" href="/note-book/assets/js/232.e3aade13.js"><link rel="prefetch" href="/note-book/assets/js/233.6b5d26e4.js"><link rel="prefetch" href="/note-book/assets/js/234.6cc168a0.js"><link rel="prefetch" href="/note-book/assets/js/235.87c7f210.js"><link rel="prefetch" href="/note-book/assets/js/236.b6176b9f.js"><link rel="prefetch" href="/note-book/assets/js/237.c50872d1.js"><link rel="prefetch" href="/note-book/assets/js/238.4098f511.js"><link rel="prefetch" href="/note-book/assets/js/239.663405d6.js"><link rel="prefetch" href="/note-book/assets/js/24.c68c6bad.js"><link rel="prefetch" href="/note-book/assets/js/240.7e506d08.js"><link rel="prefetch" href="/note-book/assets/js/241.d1415177.js"><link rel="prefetch" href="/note-book/assets/js/242.ff809288.js"><link rel="prefetch" href="/note-book/assets/js/243.9de01714.js"><link rel="prefetch" href="/note-book/assets/js/244.b31e65d3.js"><link rel="prefetch" href="/note-book/assets/js/245.8222cfc2.js"><link rel="prefetch" href="/note-book/assets/js/246.3e0d091a.js"><link rel="prefetch" href="/note-book/assets/js/247.0cc34be9.js"><link rel="prefetch" href="/note-book/assets/js/248.c7532d1d.js"><link rel="prefetch" href="/note-book/assets/js/249.f69d02ea.js"><link rel="prefetch" href="/note-book/assets/js/250.a0cf5480.js"><link rel="prefetch" href="/note-book/assets/js/251.c0ea88f8.js"><link rel="prefetch" href="/note-book/assets/js/252.74140451.js"><link rel="prefetch" href="/note-book/assets/js/253.d80f3f7a.js"><link rel="prefetch" href="/note-book/assets/js/254.e0080ca0.js"><link rel="prefetch" href="/note-book/assets/js/255.ed867bbe.js"><link rel="prefetch" href="/note-book/assets/js/256.87360a7c.js"><link rel="prefetch" href="/note-book/assets/js/257.56732fb4.js"><link rel="prefetch" href="/note-book/assets/js/258.b47ded68.js"><link rel="prefetch" href="/note-book/assets/js/259.9becbc90.js"><link rel="prefetch" href="/note-book/assets/js/26.4bf7cb34.js"><link rel="prefetch" href="/note-book/assets/js/260.155d0344.js"><link rel="prefetch" href="/note-book/assets/js/261.f5613c98.js"><link rel="prefetch" href="/note-book/assets/js/262.6fd7e40b.js"><link rel="prefetch" href="/note-book/assets/js/263.8ac5a46b.js"><link rel="prefetch" href="/note-book/assets/js/264.ae12e395.js"><link rel="prefetch" href="/note-book/assets/js/265.7df2102b.js"><link rel="prefetch" href="/note-book/assets/js/266.7f4413a6.js"><link rel="prefetch" href="/note-book/assets/js/267.5b687929.js"><link rel="prefetch" href="/note-book/assets/js/268.22fae9e7.js"><link rel="prefetch" href="/note-book/assets/js/269.7ee9fba9.js"><link rel="prefetch" href="/note-book/assets/js/27.07371ccf.js"><link rel="prefetch" href="/note-book/assets/js/270.7944cb81.js"><link rel="prefetch" href="/note-book/assets/js/271.6019d8c8.js"><link rel="prefetch" href="/note-book/assets/js/272.1bd294c1.js"><link rel="prefetch" href="/note-book/assets/js/273.479e428b.js"><link rel="prefetch" href="/note-book/assets/js/274.0c535848.js"><link rel="prefetch" href="/note-book/assets/js/275.2fcb660d.js"><link rel="prefetch" href="/note-book/assets/js/276.1efdd9eb.js"><link rel="prefetch" href="/note-book/assets/js/277.facee6fc.js"><link rel="prefetch" href="/note-book/assets/js/278.331ddd92.js"><link rel="prefetch" href="/note-book/assets/js/279.a79b7789.js"><link rel="prefetch" href="/note-book/assets/js/28.2d89a0d2.js"><link rel="prefetch" href="/note-book/assets/js/280.011ab50d.js"><link rel="prefetch" href="/note-book/assets/js/29.8efdece8.js"><link rel="prefetch" href="/note-book/assets/js/3.c5e049ce.js"><link rel="prefetch" href="/note-book/assets/js/30.a0ddb348.js"><link rel="prefetch" href="/note-book/assets/js/31.857b5a46.js"><link rel="prefetch" href="/note-book/assets/js/32.78845756.js"><link rel="prefetch" href="/note-book/assets/js/33.4876aec2.js"><link rel="prefetch" href="/note-book/assets/js/34.377fa012.js"><link rel="prefetch" href="/note-book/assets/js/35.28bd1db2.js"><link rel="prefetch" href="/note-book/assets/js/36.6bf5f482.js"><link rel="prefetch" href="/note-book/assets/js/37.35cbbcd2.js"><link rel="prefetch" href="/note-book/assets/js/38.308f4243.js"><link rel="prefetch" href="/note-book/assets/js/39.f6a7df56.js"><link rel="prefetch" href="/note-book/assets/js/4.e8b6e656.js"><link rel="prefetch" href="/note-book/assets/js/40.960bb7e4.js"><link rel="prefetch" href="/note-book/assets/js/41.ca9f7677.js"><link rel="prefetch" href="/note-book/assets/js/42.c531c96e.js"><link rel="prefetch" href="/note-book/assets/js/43.5f4007fc.js"><link rel="prefetch" href="/note-book/assets/js/44.65b718b5.js"><link rel="prefetch" href="/note-book/assets/js/45.feb00a2b.js"><link rel="prefetch" href="/note-book/assets/js/46.e022028f.js"><link rel="prefetch" href="/note-book/assets/js/47.37eda48f.js"><link rel="prefetch" href="/note-book/assets/js/48.79a0bfd7.js"><link rel="prefetch" href="/note-book/assets/js/49.82f67291.js"><link rel="prefetch" href="/note-book/assets/js/5.bf2430a8.js"><link rel="prefetch" href="/note-book/assets/js/50.13d1b20a.js"><link rel="prefetch" href="/note-book/assets/js/51.86ca8953.js"><link rel="prefetch" href="/note-book/assets/js/52.5b10eeab.js"><link rel="prefetch" href="/note-book/assets/js/53.cad663ef.js"><link rel="prefetch" href="/note-book/assets/js/54.b2ee950c.js"><link rel="prefetch" href="/note-book/assets/js/55.cb448124.js"><link rel="prefetch" href="/note-book/assets/js/56.4630ee29.js"><link rel="prefetch" href="/note-book/assets/js/57.5934cc13.js"><link rel="prefetch" href="/note-book/assets/js/58.856c271b.js"><link rel="prefetch" href="/note-book/assets/js/59.10fccfcb.js"><link rel="prefetch" href="/note-book/assets/js/6.047e07ae.js"><link rel="prefetch" href="/note-book/assets/js/60.c5b7a66e.js"><link rel="prefetch" href="/note-book/assets/js/61.bfcbaf58.js"><link rel="prefetch" href="/note-book/assets/js/62.2678d59a.js"><link rel="prefetch" href="/note-book/assets/js/63.76f0d177.js"><link rel="prefetch" href="/note-book/assets/js/64.fdc97b43.js"><link rel="prefetch" href="/note-book/assets/js/65.4c376a8c.js"><link rel="prefetch" href="/note-book/assets/js/66.6ad0bfba.js"><link rel="prefetch" href="/note-book/assets/js/67.730698d3.js"><link rel="prefetch" href="/note-book/assets/js/68.d0a78aa5.js"><link rel="prefetch" href="/note-book/assets/js/69.185346dd.js"><link rel="prefetch" href="/note-book/assets/js/7.49d3330c.js"><link rel="prefetch" href="/note-book/assets/js/70.30fcd673.js"><link rel="prefetch" href="/note-book/assets/js/71.6c879358.js"><link rel="prefetch" href="/note-book/assets/js/72.2711247b.js"><link rel="prefetch" href="/note-book/assets/js/73.632d6af8.js"><link rel="prefetch" href="/note-book/assets/js/74.28389d2e.js"><link rel="prefetch" href="/note-book/assets/js/75.7b939035.js"><link rel="prefetch" href="/note-book/assets/js/76.6855f35c.js"><link rel="prefetch" href="/note-book/assets/js/77.e938312b.js"><link rel="prefetch" href="/note-book/assets/js/78.e4951021.js"><link rel="prefetch" href="/note-book/assets/js/79.b3cd279c.js"><link rel="prefetch" href="/note-book/assets/js/8.4265df7e.js"><link rel="prefetch" href="/note-book/assets/js/80.f600ff1a.js"><link rel="prefetch" href="/note-book/assets/js/81.2451dce2.js"><link rel="prefetch" href="/note-book/assets/js/82.3d89e727.js"><link rel="prefetch" href="/note-book/assets/js/83.0500a089.js"><link rel="prefetch" href="/note-book/assets/js/84.5211d34c.js"><link rel="prefetch" href="/note-book/assets/js/85.77338ef9.js"><link rel="prefetch" href="/note-book/assets/js/86.6046f409.js"><link rel="prefetch" href="/note-book/assets/js/87.17b77e2d.js"><link rel="prefetch" href="/note-book/assets/js/88.aca3e95a.js"><link rel="prefetch" href="/note-book/assets/js/89.e8e64a0b.js"><link rel="prefetch" href="/note-book/assets/js/9.170c21ac.js"><link rel="prefetch" href="/note-book/assets/js/90.43e0475e.js"><link rel="prefetch" href="/note-book/assets/js/91.f1cf016f.js"><link rel="prefetch" href="/note-book/assets/js/92.8ad1d169.js"><link rel="prefetch" href="/note-book/assets/js/93.485f95a9.js"><link rel="prefetch" href="/note-book/assets/js/94.ed131c25.js"><link rel="prefetch" href="/note-book/assets/js/95.6ab56254.js"><link rel="prefetch" href="/note-book/assets/js/96.55928075.js"><link rel="prefetch" href="/note-book/assets/js/97.8906b2ea.js"><link rel="prefetch" href="/note-book/assets/js/98.07f9b2d1.js"><link rel="prefetch" href="/note-book/assets/js/99.64afb433.js">
+    <link rel="stylesheet" href="/note-book/assets/css/0.styles.7ff3853c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/note-book/" class="home-link router-link-active"><!----> <span class="site-name">Mrcode 笔记本</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/note-book/" class="nav-link">Home</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">设计模式</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/imocc/design_pattern/" class="nav-link">设计模式（慕课）</a></li><li class="dropdown-item"><!----> <a href="/note-book/design_pattern/" class="nav-link router-link-active">研磨设计模式（李兴华）</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Mycat</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/mycat/" class="nav-link">mycat 1</a></li><li class="dropdown-item"><!----> <a href="/note-book/mycat2/" class="nav-link">mycat 2</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">elasticsearch</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/elasticsearch-core/" class="nav-link">核心知识篇</a></li><li class="dropdown-item"><!----> <a href="/note-book/elasticsearch-senior/" class="nav-link">高级知识篇</a></li></ul></div></div><div class="nav-item"><a href="/note-book/_posts/" class="nav-link">博客（零散文章）</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">系列学习中</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/cache-pdp/" class="nav-link">亿级流量电商详情页系统实战（缓存架构）</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">了解更多</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/introduce/" class="nav-link">本笔记介绍</a></li></ul></div></div> <a href="https://github.com/zq99299/note-book" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/note-book/" class="nav-link">Home</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">设计模式</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/imocc/design_pattern/" class="nav-link">设计模式（慕课）</a></li><li class="dropdown-item"><!----> <a href="/note-book/design_pattern/" class="nav-link router-link-active">研磨设计模式（李兴华）</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Mycat</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/mycat/" class="nav-link">mycat 1</a></li><li class="dropdown-item"><!----> <a href="/note-book/mycat2/" class="nav-link">mycat 2</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">elasticsearch</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/elasticsearch-core/" class="nav-link">核心知识篇</a></li><li class="dropdown-item"><!----> <a href="/note-book/elasticsearch-senior/" class="nav-link">高级知识篇</a></li></ul></div></div><div class="nav-item"><a href="/note-book/_posts/" class="nav-link">博客（零散文章）</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">系列学习中</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/cache-pdp/" class="nav-link">亿级流量电商详情页系统实战（缓存架构）</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">了解更多</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/note-book/introduce/" class="nav-link">本笔记介绍</a></li></ul></div></div> <a href="https://github.com/zq99299/note-book" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>研磨设计模式（李兴华）</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/note-book/design_pattern/" class="sidebar-link">设计模式有什么？设计模式简介</a></li><li><a href="/note-book/design_pattern/02_how_to_learn/how_to_learn.html" class="sidebar-link">如何学习设计模式</a></li><li><a href="/note-book/design_pattern/03_simple_factory/simple_factory.html" class="sidebar-link">简单工厂</a></li><li><a href="/note-book/design_pattern/04_facade/facade.html" class="sidebar-link">外观模式</a></li><li><a href="/note-book/design_pattern/05_adapter/adapter.html" class="sidebar-link">适配器模式</a></li><li><a href="/note-book/design_pattern/06_singleton/singleton.html" class="sidebar-link">单例设计模式</a></li><li><a href="/note-book/design_pattern/07_factory_method/factory_method.html" class="sidebar-link">工厂方法模式</a></li><li><a href="/note-book/design_pattern/08_abstract_factory/abstract_factory.html" class="sidebar-link">抽象工厂模式</a></li><li><a href="/note-book/design_pattern/09_builder/builder.html" class="sidebar-link">生成器模式</a></li><li><a href="/note-book/design_pattern/10_prototype/prototype.html" class="active sidebar-link">原型模式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#初识原型模式" class="sidebar-link">初识原型模式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#定义" class="sidebar-link">定义</a></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#结构和说明" class="sidebar-link">结构和说明</a></li></ul></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#体会原型模式" class="sidebar-link">体会原型模式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#不用模式的解决方案：" class="sidebar-link">不用模式的解决方案：</a></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#使用模式的解决方案" class="sidebar-link">使用模式的解决方案</a></li></ul></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#理解原型模式" class="sidebar-link">理解原型模式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#认识原型模式" class="sidebar-link">认识原型模式</a></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#java中的克隆方法" class="sidebar-link">Java中的克隆方法</a></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#浅度克隆和深度克隆" class="sidebar-link">浅度克隆和深度克隆</a></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#原型管理器（其实就是一个缓存的实现）" class="sidebar-link">原型管理器（其实就是一个缓存的实现）</a></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#原型模式的优缺点" class="sidebar-link">原型模式的优缺点</a></li></ul></li><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#理解原型模式-2" class="sidebar-link">理解原型模式</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note-book/design_pattern/10_prototype/prototype.html#何时选原型模式：" class="sidebar-link">何时选原型模式：</a></li></ul></li></ul></li><li><a href="/note-book/design_pattern/11_mediator/mediator.html" class="sidebar-link">中介者模式</a></li><li><a href="/note-book/design_pattern/12_proxy/proxy.html" class="sidebar-link">代理模式</a></li><li><a href="/note-book/design_pattern/13_observer/observer.html" class="sidebar-link">观察者模式</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="content default"><h1 id="原型模式"><a href="#原型模式" aria-hidden="true" class="header-anchor">#</a> 原型模式</h1> <hr> <h2 id="初识原型模式"><a href="#初识原型模式" aria-hidden="true" class="header-anchor">#</a> 初识原型模式</h2> <h3 id="定义"><a href="#定义" aria-hidden="true" class="header-anchor">#</a> 定义</h3> <p>用原型实例指定创建对象的种类，并通过<code>拷贝</code>这些原型<code>创建新的对象</code></p> <h3 id="结构和说明"><a href="#结构和说明" aria-hidden="true" class="header-anchor">#</a> 结构和说明</h3> <p><img src="/note-book/assets/img/1.fa1c5221.jpg" alt=""></p> <p>**Prototype：**声明一个克隆自身的接口，用来约束想要克隆自己的类，要求他们都要实现这里定义的克隆方法。
+**ConcretePrototype：**实现Prototype接口的类，这些类真正实现克隆自身的功能。
+**Client：**使用原型的客户端，首先要获取到原型实例对象，然后通过原型实例克隆自身来创建新的对象实例</p> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * 声明一个克隆自身的接口
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Prototype</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 克隆自身的方法
+	 * @return 一个从自身克隆出来的对象
+	 */</span>
+	<span class="token keyword">public</span> Prototype <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 克隆的具体实现对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcretePrototype1</span> <span class="token keyword">implements</span> <span class="token class-name">Prototype</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> Prototype <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//最简单的克隆，新建一个自身对象，由于没有属性，就不去复制值了</span>
+		Prototype prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcretePrototype1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> prototype<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 克隆的具体实现对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcretePrototype2</span> <span class="token keyword">implements</span> <span class="token class-name">Prototype</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> Prototype <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//最简单的克隆，新建一个自身对象，由于没有属性，就不去复制值了</span>
+		Prototype prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcretePrototype2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> prototype<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 使用原型的客户端
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 持有需要使用的原型接口对象
+	 */</span>
+	<span class="token keyword">private</span> Prototype prototype<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 构造方法，传入需要使用的原型接口对象
+	 * @param prototype 需要使用的原型接口对象
+	 */</span>
+	<span class="token keyword">public</span> <span class="token function">Client</span><span class="token punctuation">(</span>Prototype prototype<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>prototype <span class="token operator">=</span> prototype<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">/**
+	 * 示意方法，执行某个功能操作
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">operation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//会需要创建原型接口的对象</span>
+		Prototype newPrototype <span class="token operator">=</span> prototype<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br></div></div><hr> <h2 id="体会原型模式"><a href="#体会原型模式" aria-hidden="true" class="header-anchor">#</a> 体会原型模式</h2> <p><strong>问题：</strong></p> <p>**订单处理系统：**考虑这样一个实际应用：订单处理系统</p> <p>现在有一个订单处理的系统，里面有个保存订单业务功能，在这个业务功能里面，客户有这么一个需求：每当订单的预定产品数量超过1000的时候，就需要把订单拆分成两份订单来保存，如果拆分成两份订单后，还是超过1000，那就继续拆分，直到每份订单的预定产品数量不超过1000.至于为什么要拆分，原因是好进行订单的后续处理，后续是由人工来处理，每个人工工作小组的处理能力上限是1000
+(比如：京东的订单，在不同仓库，就自动拆分订单)</p> <p>根据业务，目前的订单类型被分成两种：一种是个人订单，一种是公司订单。现在想要实现一个通用的订单处理系统，也就是说，不管具体是什么类型的订单，都要能够正常的处理。</p> <h3 id="不用模式的解决方案："><a href="#不用模式的解决方案：" aria-hidden="true" class="header-anchor">#</a> 不用模式的解决方案：</h3> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * 订单的接口
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">OrderApi</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 获取订单产品数量
+	 * @return 订单中产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 设置订单产品数量
+	 * @param num 订单产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 个人订单对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonalOrder</span> <span class="token keyword">implements</span> <span class="token class-name">OrderApi</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 订购人员姓名
+	 */</span>
+	<span class="token keyword">private</span> String customerName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getCustomerName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCustomerName</span><span class="token punctuation">(</span>String customerName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>customerName <span class="token operator">=</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;本个人订单的订购人是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>customerName<span class="token operator">+</span><span class="token string">&quot;，订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 企业订单对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EnterpriseOrder</span> <span class="token keyword">implements</span> <span class="token class-name">OrderApi</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 企业名称
+	 */</span>
+	<span class="token keyword">private</span> String enterpriseName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getEnterpriseName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> enterpriseName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setEnterpriseName</span><span class="token punctuation">(</span>String enterpriseName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>enterpriseName <span class="token operator">=</span> enterpriseName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;本企业订单的订购企业是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>enterpriseName<span class="token operator">+</span><span class="token string">&quot;，订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 处理订单的业务对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderBusiness</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 创建订单的方法
+	 * @param order 订单的接口对象
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">saveOrder</span><span class="token punctuation">(</span>OrderApi order<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//根据业务要求，当订单的预定的产品数量超过1000的时候，就需要把订单拆成两份订单</span>
+		<span class="token comment">//当然如果要做好，这里的1000应该做成常量，这么做是为了演示简单</span>
+
+		<span class="token comment">//1：判断当前的预定产品数量是否大于1000</span>
+		<span class="token keyword">while</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token comment">//2：如果大于，还需要继续拆分</span>
+			<span class="token comment">//2.1再新建一份订单，跟传入的订单除了数量不一样外，其他都相同</span>
+			OrderApi newOrder <span class="token operator">=</span> null<span class="token punctuation">;</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span>order <span class="token keyword">instanceof</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+				<span class="token comment">//创建相应的新的订单对象</span>
+				PersonalOrder p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token comment">//然后进行赋值，但是产品数量为1000</span>
+				PersonalOrder p1 <span class="token operator">=</span> <span class="token punctuation">(</span>PersonalOrder<span class="token punctuation">)</span>order<span class="token punctuation">;</span>
+				p2<span class="token punctuation">.</span><span class="token function">setCustomerName</span><span class="token punctuation">(</span>p1<span class="token punctuation">.</span><span class="token function">getCustomerName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				p2<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span>p1<span class="token punctuation">.</span><span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>			
+				p2<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token comment">//然后再设置给newOrder</span>
+				newOrder <span class="token operator">=</span> p2<span class="token punctuation">;</span>
+			<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>order <span class="token keyword">instanceof</span> <span class="token class-name">EnterpriseOrder</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+				<span class="token comment">//创建相应的订单对象</span>
+				EnterpriseOrder e2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnterpriseOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token comment">//然后进行赋值，但是产品数量为1000</span>
+				EnterpriseOrder e1 <span class="token operator">=</span> <span class="token punctuation">(</span>EnterpriseOrder<span class="token punctuation">)</span>order<span class="token punctuation">;</span>
+				e2<span class="token punctuation">.</span><span class="token function">setEnterpriseName</span><span class="token punctuation">(</span>e1<span class="token punctuation">.</span><span class="token function">getEnterpriseName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				e2<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span>e1<span class="token punctuation">.</span><span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				e2<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token comment">//然后再设置给newOrder</span>
+				newOrder <span class="token operator">=</span> e2<span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>			
+
+			<span class="token comment">//2.2原来的订单保留，把数量设置成减少1000</span>
+			order<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">//然后是业务功能处理，省略了，打印输出，看一下</span>
+			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;拆分生成订单==&quot;</span><span class="token operator">+</span>newOrder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token comment">//3：不超过，那就直接业务功能处理，省略了，打印输出，看一下</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;订单==&quot;</span><span class="token operator">+</span>order<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token punctuation">}</span>
+
+<span class="token comment">//	public void saveOrder2(OrderApi order){</span>
+<span class="token comment">//		int oldNum = order.getOrderProductNum();</span>
+<span class="token comment">//		while(oldNum &gt; 1000){</span>
+<span class="token comment">//			//定义一个表示被拆分出来的新订单对象</span>
+<span class="token comment">//			OrderApi newOrder = null;</span>
+<span class="token comment">//			</span>
+<span class="token comment">//			if(order instanceof PersonalOrder){</span>
+<span class="token comment">//				//创建相应的订单对象</span>
+<span class="token comment">//				PersonalOrder p2 = new PersonalOrder();</span>
+<span class="token comment">//				//然后进行赋值等，省略了</span>
+<span class="token comment">//				//然后再设置给newOrder</span>
+<span class="token comment">//				newOrder = p2;</span>
+<span class="token comment">//			}else if(order instanceof EnterpriseOrder){</span>
+<span class="token comment">//				//创建相应的订单对象</span>
+<span class="token comment">//				EnterpriseOrder e2 = new EnterpriseOrder();</span>
+<span class="token comment">//				//然后进行赋值等，省略了</span>
+<span class="token comment">//				//然后再设置给newOrder</span>
+<span class="token comment">//				newOrder = e2;</span>
+<span class="token comment">//			}			</span>
+<span class="token comment">//			//然后进行拆分和其他业务功能处理，省略了</span>
+<span class="token comment">//		}		</span>
+<span class="token comment">//	}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderClient</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//创建订单对象，这里为了演示简单，直接new了</span>
+		PersonalOrder op <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//设置订单数据</span>
+		op<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">2925</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		op<span class="token punctuation">.</span><span class="token function">setCustomerName</span><span class="token punctuation">(</span><span class="token string">&quot;张三&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		op<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span><span class="token string">&quot;P0001&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//这里获取业务处理的类，也直接new了，为了简单，连业务接口都没有做</span>
+		OrderBusiness ob <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OrderBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//调用业务来保存订单对象</span>
+		ob<span class="token punctuation">.</span><span class="token function">saveOrder</span><span class="token punctuation">(</span>op<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br></div></div><p><strong>存在的问题：</strong></p> <p>要求是：不用关心具体是什么类型的订单。但是代码中使用了 instanceof 的代码来向下转型了</p> <ol><li>既然想要实现通用的订单处理，那么对于订单处理的实现对象，是不应该知道订单的具体实现的，更不应该依赖订单的具体实现。但是上面的实现中，很明显订单处理的对象依赖了订单的具体实现对象。</li> <li>难以扩展新的订单类型。加入现在要加入一个大客户专用订单类型，那么就需要修改订单处理的对象，要在里面添加对新的订单类型的支持，这算哪门子的通用处理。</li></ol> <p>因此：上面的实现是不太好的，把上面的问题再抽象描述一下：已经有了某个对象实例后，如何能够快速简单地创建出更多的这种对象？？</p> <h3 id="使用模式的解决方案"><a href="#使用模式的解决方案" aria-hidden="true" class="header-anchor">#</a> 使用模式的解决方案</h3> <p><img src="/note-book/assets/img/2.82707c72.jpg" alt=""></p> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * 订单的接口，声明了可以克隆自身的方法
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">OrderApi</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 获取订单产品数量
+	 * @return 订单中产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 设置订单产品数量
+	 * @param num 订单产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 克隆方法
+	 * @return 订单原型的实例
+	 */</span>
+	<span class="token keyword">public</span> OrderApi <span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 个人订单对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonalOrder</span> <span class="token keyword">implements</span> <span class="token class-name">OrderApi</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 订购人员姓名
+	 */</span>
+	<span class="token keyword">private</span> String customerName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getCustomerName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCustomerName</span><span class="token punctuation">(</span>String customerName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>customerName <span class="token operator">=</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;本个人订单的订购人是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>customerName<span class="token operator">+</span><span class="token string">&quot;，订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> OrderApi <span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//创建一个新的订单，然后把本实例的数据复制过去</span>
+		PersonalOrder order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setCustomerName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>customerName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">return</span> order<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 企业订单对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EnterpriseOrder</span> <span class="token keyword">implements</span> <span class="token class-name">OrderApi</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 企业名称
+	 */</span>
+	<span class="token keyword">private</span> String enterpriseName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getEnterpriseName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> enterpriseName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setEnterpriseName</span><span class="token punctuation">(</span>String enterpriseName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>enterpriseName <span class="token operator">=</span> enterpriseName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;本企业订单的订购企业是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>enterpriseName<span class="token operator">+</span><span class="token string">&quot;，订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> OrderApi <span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//创建一个新的订单，然后把本实例的数据复制过去</span>
+		EnterpriseOrder order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnterpriseOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setEnterpriseName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>enterpriseName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token keyword">return</span> order<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 处理订单的业务对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderBusiness</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 创建订单的方法
+	 * @param order 订单的接口对象
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">saveOrder</span><span class="token punctuation">(</span>OrderApi order<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//根据业务要求，当订单的预定的产品数量超过1000的时候，就需要把订单拆成两份订单</span>
+		<span class="token comment">//当然如果要做好，这里的1000应该做成常量，这么做是为了演示简单</span>
+
+		<span class="token comment">//1：判断当前的预定产品数量是否大于1000</span>
+		<span class="token keyword">while</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token comment">//2：如果大于，还需要继续拆分</span>
+			<span class="token comment">//2.1再新建一份订单，跟传入的订单除了数量不一样外，其他都相同</span>
+			OrderApi newOrder <span class="token operator">=</span> order<span class="token punctuation">.</span><span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token comment">//然后进行赋值，产品数量为1000</span>
+			newOrder<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">//2.2原来的订单保留，把数量设置成减少1000</span>
+			order<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span>order<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">//然后是业务功能处理，省略了，打印输出，看一下</span>
+			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;拆分生成订单==&quot;</span><span class="token operator">+</span>newOrder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>		
+		<span class="token comment">//3：不超过，那就直接业务功能处理，省略了，打印输出，看一下</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;订单==&quot;</span><span class="token operator">+</span>order<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderClient</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//创建订单对象，这里为了演示简单，直接new了</span>
+		PersonalOrder op <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//设置订单数据</span>
+		op<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">3925</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		op<span class="token punctuation">.</span><span class="token function">setCustomerName</span><span class="token punctuation">(</span><span class="token string">&quot;张三&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		op<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span><span class="token string">&quot;P0001&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//这里获取业务处理的类，也直接new了，为了简单，连业务接口都没有做</span>
+		OrderBusiness ob <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OrderBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//调用业务来保存订单对象</span>
+		ob<span class="token punctuation">.</span><span class="token function">saveOrder</span><span class="token punctuation">(</span>op<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br></div></div><hr> <h2 id="理解原型模式"><a href="#理解原型模式" aria-hidden="true" class="header-anchor">#</a> 理解原型模式</h2> <h3 id="认识原型模式"><a href="#认识原型模式" aria-hidden="true" class="header-anchor">#</a> 认识原型模式</h3> <ol><li>原型模式的功能</li></ol> <p>** 原型模式的功能实际上包含两个方面：**
+1. 一个是通过克隆来创建新的对象实例
+2. 另一个是为克隆出来的新的对象实例复制原型实例属性的值</p> <pre><code>**原型模式要实现的主要功能就是：**`通过克隆来创建新的对象实例`。
+
+一般来讲，新创建出来的实例的数据是和原型实例一样的。但是具体如何实现克隆，需要由程序自行实现，原型模式并没有统一的要求和实现算法。
+</code></pre> <ol start="2"><li><p>原型与new</p> <p>原型模式从某种意义上说，就行是new操作，在前面的例子实现中，克隆方法就是使用new来实现的，但请注意，<code>只是“类似于new”而不是“就是new”</code>。</p> <p>**克隆方法和new操作最明显的不同就在于：**new一个对象实例，一般属性是没有值的，或则是只有默认值：如果是克隆得到 一个实例，通常属性是有值的，属性的值就是原型对象实例在克隆的时候，原型对象实例的属性的值。</p></li> <li><p>原型实例和克隆的实例</p> <p>原型实例和克隆出来的实例，本质上是不同的实例，克隆完成后，他们之间是偶关联的，如果克隆完成后，克隆出来的实例的属性的值发生了改变，是不会影响到原型实例的。</p></li> <li><p>原型模式的调用顺序示意图</p></li></ol> <p><img src="/note-book/assets/img/3.2bb00f19.jpg" alt=""></p> <h3 id="java中的克隆方法"><a href="#java中的克隆方法" aria-hidden="true" class="header-anchor">#</a> Java中的克隆方法</h3> <p>在Java语言中已经提供了clone方法，定义在object类中。需要克隆功能的类，值需要实现java.lang.cloneable接口，这个接口没有需要实现的方法，是一个标识接口。</p> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * 订单的接口，声明了可以克隆自身的方法
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">OrderApi</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 获取订单产品数量
+	 * @return 订单中产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 设置订单产品数量
+	 * @param num 订单产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 个人订单对象,利用Java的Clone功能
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonalOrder</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span>  <span class="token punctuation">,</span> OrderApi<span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 订购人员姓名
+	 */</span>
+	<span class="token keyword">private</span> String customerName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getCustomerName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCustomerName</span><span class="token punctuation">(</span>String customerName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>customerName <span class="token operator">=</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;本个人订单的订购人是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>customerName<span class="token operator">+</span><span class="token string">&quot;，订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> Object <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//克隆方法的真正实现，直接调用父类的克隆方法就可以了</span>
+		Object obj <span class="token operator">=</span> null<span class="token punctuation">;</span>
+		<span class="token keyword">try</span> <span class="token punctuation">{</span>
+			obj <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">CloneNotSupportedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//先创建原型实例</span>
+		PersonalOrder oa1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//设置原型实例的订单数量的值</span>
+		oa1<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//为了简单，这里仅仅输出数量</span>
+	    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;这是第一次获取的对象实例===&quot;</span><span class="token operator">+</span>oa1<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//通过克隆来获取新的实例</span>
+	    PersonalOrder oa2 <span class="token operator">=</span> <span class="token punctuation">(</span>PersonalOrder<span class="token punctuation">)</span>oa1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//修改它的数量</span>
+		oa2<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//输出克隆出来的对象的值</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;输出克隆出来的实例===&quot;</span><span class="token operator">+</span>oa2<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//再次输出原型实例的值</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;再次输出原型实例===&quot;</span><span class="token operator">+</span>oa1<span class="token punctuation">.</span><span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br></div></div><h3 id="浅度克隆和深度克隆"><a href="#浅度克隆和深度克隆" aria-hidden="true" class="header-anchor">#</a> 浅度克隆和深度克隆</h3> <p><strong>什么是浅度克隆？什么是深度克隆呢？简单的解释下:</strong></p> <ol><li>**浅度克隆：**只负责克隆按值传递的数据（比如：基本数据类型、String类型）</li> <li>**深度克隆：**除了浅度克隆要克隆的值外，还负责克隆引用类型的数据，基本上就是被克隆实例所有的属性的数据都会被克隆出来</li></ol> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * 订单的接口，声明了可以克隆自身的方法
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">OrderApi</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 获取订单产品数量
+	 * @return 订单中产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 设置订单产品数量
+	 * @param num 订单产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 克隆方法
+	 * @return 订单原型的实例
+	 */</span>
+	<span class="token keyword">public</span> OrderApi <span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 个人订单对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonalOrder</span> <span class="token keyword">implements</span> <span class="token class-name">OrderApi</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 订购人员姓名
+	 */</span>
+	<span class="token keyword">private</span> String customerName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品对象
+	 */</span>
+	<span class="token keyword">private</span> Product product <span class="token operator">=</span> null<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getCustomerName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCustomerName</span><span class="token punctuation">(</span>String customerName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>customerName <span class="token operator">=</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> Product <span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> product<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProduct</span><span class="token punctuation">(</span>Product product<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>product <span class="token operator">=</span> product<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//简单点输出</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>product<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> OrderApi <span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//创建一个新的订单，然后把本实例的数据复制过去</span>
+		PersonalOrder order <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setCustomerName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>customerName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		order<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//对于对象类型的数据，深度克隆的时候需要继续调用这个对象的克隆方法</span>
+		order<span class="token punctuation">.</span><span class="token function">setProduct</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Product<span class="token punctuation">)</span><span class="token keyword">this</span><span class="token punctuation">.</span>product<span class="token punctuation">.</span><span class="token function">cloneProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>		
+		<span class="token keyword">return</span> order<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 声明一个克隆产品自身的接口
+ *
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ProductPrototype</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 克隆产品自身的方法
+	 * @return 一个从自身克隆出来的产品对象
+	 */</span>
+	<span class="token keyword">public</span> ProductPrototype <span class="token function">cloneProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 产品对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token keyword">implements</span> <span class="token class-name">ProductPrototype</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品名称
+	 */</span>
+	<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;产品编号=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，产品名称=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> ProductPrototype <span class="token function">cloneProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//创建一个新的订单，然后把本实例的数据复制过去</span>
+		Product product <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		product<span class="token punctuation">.</span><span class="token function">setProductId</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		product<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>		
+		<span class="token keyword">return</span> product<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//先创建原型实例</span>
+		PersonalOrder oa1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//设置原型实例的值</span>
+		Product product <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		product<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;产品1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		oa1<span class="token punctuation">.</span><span class="token function">setProduct</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		oa1<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;这是第一次获取的对象实例=&quot;</span><span class="token operator">+</span>oa1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//通过克隆来获取新的实例</span>
+	    PersonalOrder oa2 <span class="token operator">=</span> <span class="token punctuation">(</span>PersonalOrder<span class="token punctuation">)</span>oa1<span class="token punctuation">.</span><span class="token function">cloneOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//修改它的值</span>
+	    oa2<span class="token punctuation">.</span><span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;产品2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		oa2<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//输出克隆出来的对象的值</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;输出克隆出来的实例=&quot;</span><span class="token operator">+</span>oa2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//再次输出原型实例的值</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;再次输出原型实例=&quot;</span><span class="token operator">+</span>oa1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br></div></div><p><strong>深度克隆还有一个特点</strong>: 如果被克隆的对象里面的属性数据是引用类型，也就是属性的类型也是对象，那么需要一直递归的克隆下去。这也意味着，要想深度克隆成功，必须要整个克隆所涉及的对象都要正确实现克隆方法，如果其中有一个没有正确 实现克隆，那么就会导致克隆失败。</p> <p>**java中的克隆接口的写法：**super.clone的实现方式：对于引用类型，是直接克把引用地址给克隆了。</p> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token comment">/**
+ * 订单的接口
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">OrderApi</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 获取订单产品数量
+	 * @return 订单中产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 设置订单产品数量
+	 * @param num 订单产品数量
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 个人订单对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonalOrder</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span> <span class="token punctuation">,</span> OrderApi<span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 订购人员姓名
+	 */</span>
+	<span class="token keyword">private</span> String customerName<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品对象
+	 */</span>
+	<span class="token keyword">private</span> Product product <span class="token operator">=</span> null<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 订单产品数量
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">int</span> orderProductNum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrderProductNum</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum <span class="token operator">=</span> num<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getCustomerName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setCustomerName</span><span class="token punctuation">(</span>String customerName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>customerName <span class="token operator">=</span> customerName<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> Product <span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> product<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProduct</span><span class="token punctuation">(</span>Product product<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>product <span class="token operator">=</span> product<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//简单点输出</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;订购产品是=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>product<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">&quot;，订购数量为=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>orderProductNum<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> Object <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		PersonalOrder obj<span class="token operator">=</span>null<span class="token punctuation">;</span>
+		<span class="token keyword">try</span> <span class="token punctuation">{</span>
+			obj <span class="token operator">=</span><span class="token punctuation">(</span>PersonalOrder<span class="token punctuation">)</span><span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token comment">//这一句话不可少 ，super.clone的实现方式：对于引用类型，是直接克把引用地址给克隆了。</span>
+<span class="token comment">//			obj.setProduct((Product)this.product.clone());</span>
+		<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">CloneNotSupportedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>		
+		<span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 产品对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 产品编号
+	 */</span>
+	<span class="token keyword">private</span> String productId<span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 产品名称
+	 */</span>
+	<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">getProductId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setProductId</span><span class="token punctuation">(</span>String productId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>productId <span class="token operator">=</span> productId<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;产品编号=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>productId<span class="token operator">+</span><span class="token string">&quot;，产品名称=&quot;</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> Object <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		Object obj <span class="token operator">=</span> null<span class="token punctuation">;</span>
+		<span class="token keyword">try</span> <span class="token punctuation">{</span>
+			obj <span class="token operator">=</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">CloneNotSupportedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">//先创建原型实例</span>
+		PersonalOrder oa1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PersonalOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//设置原型实例的值</span>
+		Product product <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		product<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;产品1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		oa1<span class="token punctuation">.</span><span class="token function">setProduct</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		oa1<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;这是第一次获取的对象实例=&quot;</span><span class="token operator">+</span>oa1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//通过克隆来获取新的实例</span>
+	    PersonalOrder oa2 <span class="token operator">=</span> <span class="token punctuation">(</span>PersonalOrder<span class="token punctuation">)</span>oa1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//修改它的值</span>
+	    oa2<span class="token punctuation">.</span><span class="token function">getProduct</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;产品2&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		oa2<span class="token punctuation">.</span><span class="token function">setOrderProductNum</span><span class="token punctuation">(</span><span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//输出克隆出来的对象的值</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;输出克隆出来的实例=&quot;</span><span class="token operator">+</span>oa2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		<span class="token comment">//再次输出原型实例的值</span>
+		System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;再次输出原型实例=&quot;</span><span class="token operator">+</span>oa1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br></div></div><h3 id="原型管理器（其实就是一个缓存的实现）"><a href="#原型管理器（其实就是一个缓存的实现）" aria-hidden="true" class="header-anchor">#</a> 原型管理器（其实就是一个缓存的实现）</h3> <p>如果一个系统中<code>原型的数目不固定</code>，比如系统中的<code>原型可以被动态的创建和销毁</code>，那么就需要在系统中<code>维护</code>一个当前<code>可用的原型的注册表</code>，这个注册表就被成为<code>原型管理器</code>。</p> <p>其实如果把原型当成一个资源的话，原型管理器就相当于一个资源管理器，在系统开始运行的时候初始化，然后运行期间可用动态的添加资源和销毁资源。从这个角度看，原型管理器就可用相当于一个缓存资源的实现，只不过里面缓存和管理的是原型实例而已。</p> <p>有了原型管理器过后，一般情况下，除了想原型管理器里面添加原型对象的时候是通过new来创造的对象，其余时候都是过向原型管理器来请求原型实例，然后通过克隆方法来获取新的对象实例，这就可以实现动态管理、或则动态切换具体的对象实例。</p> <div class="language-java line-numbers-mode"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Prototype</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> Prototype <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 克隆的具体实现对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcretePrototype1</span> <span class="token keyword">implements</span> <span class="token class-name">Prototype</span> <span class="token punctuation">{</span>
+	<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> Prototype <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		ConcretePrototype1 prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcretePrototype1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		prototype<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> prototype<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;Now in Prototype1，name=&quot;</span><span class="token operator">+</span>name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 克隆的具体实现对象
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcretePrototype2</span> <span class="token keyword">implements</span> <span class="token class-name">Prototype</span> <span class="token punctuation">{</span>
+	<span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+	<span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> Prototype <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		ConcretePrototype2 prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcretePrototype2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		prototype<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> prototype<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token string">&quot;Now in Prototype2，name=&quot;</span><span class="token operator">+</span>name<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/**
+ * 原型管理器
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PrototypeManager</span> <span class="token punctuation">{</span>
+	<span class="token comment">/**
+	 * 用来记录原型的编号和原型实例的对应关系
+	 */</span>
+	<span class="token keyword">private</span> <span class="token keyword">static</span> Map<span class="token generics function"><span class="token punctuation">&lt;</span>String<span class="token punctuation">,</span>Prototype<span class="token punctuation">&gt;</span></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics function"><span class="token punctuation">&lt;</span>String<span class="token punctuation">,</span>Prototype<span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">/**
+	 * 私有化构造方法，避免外部无谓的创建实例
+	 */</span>
+	<span class="token keyword">private</span> <span class="token function">PrototypeManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+		<span class="token comment">//</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">/**
+	 * 向原型管理器里面添加或是修改某个原型注册
+	 * @param prototypeId 原型编号
+	 * @param prototype 原型实例
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">setPrototype</span><span class="token punctuation">(</span>String prototypeId<span class="token punctuation">,</span>Prototype prototype<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>prototypeId<span class="token punctuation">,</span> prototype<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">/**
+	 * 从原型管理器里面删除某个原型注册
+	 * @param prototypeId 原型编号
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">removePrototype</span><span class="token punctuation">(</span>String prototypeId<span class="token punctuation">)</span><span class="token punctuation">{</span>
+		map<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>prototypeId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">/**
+	 * 获取某个原型编号对应的原型实例
+	 * @param prototypeId 原型编号
+	 * @return 原型编号对应的原型实例
+	 * @throws Exception 如果原型编号对应的原型实例不存在，报出例外
+	 */</span>
+	<span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">static</span> Prototype <span class="token function">getPrototype</span><span class="token punctuation">(</span>String prototypeId<span class="token punctuation">)</span><span class="token keyword">throws</span> Exception<span class="token punctuation">{</span>
+		Prototype prototype <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>prototypeId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>prototype <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+			<span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span><span class="token string">&quot;您希望获取的原型还没有注册或已被销毁&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">return</span> prototype<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">try</span> <span class="token punctuation">{</span>
+			<span class="token comment">// 初始化原型管理器</span>
+			Prototype p1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcretePrototype1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			PrototypeManager<span class="token punctuation">.</span><span class="token function">setPrototype</span><span class="token punctuation">(</span><span class="token string">&quot;Prototype1&quot;</span><span class="token punctuation">,</span> p1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// 获取原型来创建对象</span>
+			Prototype p3 <span class="token operator">=</span> PrototypeManager<span class="token punctuation">.</span><span class="token function">getPrototype</span><span class="token punctuation">(</span><span class="token string">&quot;Prototype1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			p3<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;张三&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;第一个实例：&quot;</span> <span class="token operator">+</span> p3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// 有人动态的切换了实现</span>
+			Prototype p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcretePrototype2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			PrototypeManager<span class="token punctuation">.</span><span class="token function">setPrototype</span><span class="token punctuation">(</span><span class="token string">&quot;Prototype1&quot;</span><span class="token punctuation">,</span> p2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// 重新获取原型来创建对象</span>
+			Prototype p4 <span class="token operator">=</span> PrototypeManager<span class="token punctuation">.</span><span class="token function">getPrototype</span><span class="token punctuation">(</span><span class="token string">&quot;Prototype1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			p4<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;李四&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;第二个实例：&quot;</span> <span class="token operator">+</span> p4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// 有人注销了这个原型</span>
+			PrototypeManager<span class="token punctuation">.</span><span class="token function">removePrototype</span><span class="token punctuation">(</span><span class="token string">&quot;Prototype1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token comment">// 再次获取原型来创建对象</span>
+			Prototype p5 <span class="token operator">=</span> PrototypeManager<span class="token punctuation">.</span><span class="token function">getPrototype</span><span class="token punctuation">(</span><span class="token string">&quot;Prototype1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			p5<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">&quot;王五&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;第三个实例：&quot;</span> <span class="token operator">+</span> p5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			System<span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br></div></div><h3 id="原型模式的优缺点"><a href="#原型模式的优缺点" aria-hidden="true" class="header-anchor">#</a> 原型模式的优缺点</h3> <p><strong>优点：</strong></p> <ol><li>对客户端隐藏具体的实现类型</li> <li>在允许时动态改变具体的实现类型</li></ol> <p><strong>缺点：</strong></p> <ol><li>深度克隆方法实现会比较困难</li></ol> <hr> <h2 id="理解原型模式-2"><a href="#理解原型模式-2" aria-hidden="true" class="header-anchor">#</a> 理解原型模式</h2> <p>**原型模式的本质是： **克隆生成对象【重点是克隆】</p> <h3 id="何时选原型模式："><a href="#何时选原型模式：" aria-hidden="true" class="header-anchor">#</a> 何时选原型模式：</h3> <ol><li>如果一个系统想要独立于它想要使用的对象时，可以使用原型模式，让系统只面向接口变成，在系统需要新的对象的时候，可以通过克隆原型来得到</li> <li>如果需要实例化的类是在原型时刻动态那个时，可以使用原型模式，通过克隆原型来得到需要的实例。</li></ol></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/zq99299/note-book/edit/master/docs/design_pattern/10_prototype/prototype.md" target="_blank" rel="noopener noreferrer">帮助我们改善此页面！</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新: : </span> <span class="time">2018-9-4 22:55:59</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/note-book/design_pattern/09_builder/builder.html" class="prev">
+          生成器模式
+        </a></span> <span class="next"><a href="/note-book/design_pattern/11_mediator/mediator.html">
+          中介者模式
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/note-book/assets/js/app.e95dc5b2.js" defer></script><script src="/note-book/assets/js/2.2b5c6a3b.js" defer></script><script src="/note-book/assets/js/25.a1f2e7fa.js" defer></script>
+  </body>
+</html>
